@@ -9,30 +9,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.search = void 0;
-const Chef_1 = require("../../../models/Chef");
-const Restaurant_1 = require("../.././../models/Restaurant");
-const Dish_1 = require("../../../models/Dish");
-const search = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.searchController = void 0;
+const searchHandler_1 = require("../handlers/searchHandler");
+const searchController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const searchQuery = req.query.q ? req.query.q : "";
-        const chefs = yield Chef_1.Chef.find({
-            name: { $regex: searchQuery, $options: "i" },
-            status: "active",
-        });
-        const restaurants = yield Restaurant_1.Restaurant.find({
-            name: { $regex: searchQuery, $options: "i" },
-            status: "active",
-        });
-        const dishes = yield Dish_1.Dish.find({
-            name: { $regex: searchQuery, $options: "i" },
-            status: "active",
-        });
-        res.json({ chefs, restaurants, dishes });
+        yield (0, searchHandler_1.searchHandler)(req, res);
     }
     catch (error) {
-        console.error("Error occurred during search:", error);
-        res.status(500).json({ error: "An error occurred during search" });
+        console.error("Error occurred in search handler:", error);
+        res.status(500).json({ error: "An error occurred" });
     }
 });
-exports.search = search;
+exports.searchController = searchController;

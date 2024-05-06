@@ -1,16 +1,18 @@
 import { Request, Response } from "express";
 import * as restaurantHandler from "../handlers/restaurantHandler";
 
-
 export async function getAllRestaurants(req: Request, res: Response) {
   try {
     const page = parseInt(req.query.page as string) || 1;
     const perPage = parseInt(req.query.perPage as string) || 10;
-    const restaurants = await restaurantHandler.getAllRestaurants(page, perPage);
+    const restaurants = await restaurantHandler.getAllRestaurants(
+      page,
+      perPage
+    );
     res.send(restaurants);
   } catch (error) {
-    console.error('Error fetching restaurants:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error("Error fetching restaurants:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 }
 

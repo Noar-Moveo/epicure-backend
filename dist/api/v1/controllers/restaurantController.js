@@ -43,8 +43,8 @@ function getAllRestaurants(req, res) {
             res.send(restaurants);
         }
         catch (error) {
-            console.error('Error fetching restaurants:', error);
-            res.status(500).json({ error: 'Internal Server Error' });
+            console.error("Error fetching restaurants:", error);
+            res.status(500).json({ error: "Internal Server Error" });
         }
     });
 }
